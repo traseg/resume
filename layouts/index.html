@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portfolio | Developer</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ["Inter", "sans-serif"],
+                        },
+                        colors: {
+                            brand: {
+                                400: "#38bdf8",
+                                500: "#0ea5e9",
+                                600: "#0284c7",
+                            },
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+            body {
+                background-color: #0f172a; /* slate-900 */
+                color: #f8fafc; /* slate-50 */
+            }
+
+            .gradient-text {
+                background: linear-gradient(135deg, #38bdf8, #818cf8);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .glass-card {
+                background: rgba(30, 41, 59, 0.7); /* slate-800 with opacity */
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            @media print {
+                @page {
+                    size: A4;
+                    margin: 1.2cm;
+                }
+                body {
+                    background: white !important;
+                    color: black !important;
+                    display: block !important;
+                }
+                /* Hide UI elements */
+                nav,
+                footer,
+                .animate-blob,
+                .glass-card > .h-48,
+                .group-hover\:translate-x-3,
+                #contact {
+                    display: none !important;
+                }
+                .gradient-text {
+                    background: none !important;
+                    -webkit-text-fill-color: black !important;
+                    color: black !important;
+                }
+                /* Layout adjustments for single A4 */
+                section {
+                    padding: 0 !important;
+                    margin-bottom: 1.5rem !important;
+                    break-inside: avoid;
+                }
+                /* Hero */
+                #hero-section {
+                    pt: 0;
+                    pb: 0;
+                }
+                h1 {
+                    font-size: 24pt !important;
+                    margin-bottom: 0.25rem !important;
+                    color: black !important;
+                }
+                h1 span {
+                    font-size: 16pt !important;
+                    color: #555 !important;
+                    display: block;
+                    margin-top: 4px;
+                }
+                .hero-subtitle {
+                    display: none !important;
+                }
+                .hero-desc {
+                    font-size: 11pt !important;
+                    color: #333 !important;
+                    max-width: 100% !important;
+                    margin-bottom: 1rem !important;
+                }
+                .hero-buttons {
+                    display: none !important;
+                }
+
+                /* Contact info injected via CSS for print at the top */
+                #hero-section::after {
+                    content: "hello@example.com • github.com/alexdev • linkedin.com/in/alexdev";
+                    display: block;
+                    font-size: 10pt;
+                    margin-top: 0.5rem;
+                    color: #555;
+                }
+
+                /* About */
+                #about {
+                    background: none !important;
+                    margin-bottom: 1rem !important;
+                }
+                #about h3 {
+                    font-size: 14pt !important;
+                    margin-bottom: 0.5rem !important;
+                    color: black !important;
+                    border-bottom: 1px solid #ccc;
+                    padding-bottom: 4px;
+                }
+                #about h3 span,
+                #about h3 div {
+                    display: none !important;
+                }
+                #about .grid {
+                    display: block !important;
+                    gap: 0 !important;
+                }
+                #about .max-w-sm {
+                    display: none !important;
+                }
+                #about p {
+                    font-size: 10pt !important;
+                    margin-bottom: 0.25rem !important;
+                    color: #222 !important;
+                }
+                #about ul {
+                    font-size: 10pt !important;
+                    color: black !important;
+                    margin-top: 0.5rem !important;
+                }
+
+                /* Projects */
+                #projects {
+                    margin-bottom: 0 !important;
+                }
+                #projects h3 {
+                    font-size: 14pt !important;
+                    margin-bottom: 0.5rem !important;
+                    color: black !important;
+                    border-bottom: 1px solid #ccc;
+                    padding-bottom: 4px;
+                }
+                #projects h3 span,
+                #projects h3 div {
+                    display: none !important;
+                }
+                #projects .grid {
+                    display: grid !important;
+                    grid-template-columns: repeat(3, 1fr) !important;
+                    gap: 1rem !important;
+                }
+                .glass-card {
+                    background: none !important;
+                    border: 1px solid #ddd !important;
+                    box-shadow: none !important;
+                    border-radius: 4px !important;
+                    break-inside: avoid;
+                }
+                .glass-card .p-6 {
+                    padding: 0.75rem !important;
+                }
+                .glass-card h4 {
+                    font-size: 12pt !important;
+                    color: black !important;
+                    margin-bottom: 0.25rem !important;
+                }
+                .glass-card p {
+                    font-size: 9.5pt !important;
+                    color: #333 !important;
+                    margin-bottom: 0.5rem !important;
+                    -webkit-line-clamp: unset !important;
+                }
+                .glass-card ul {
+                    font-size: 8.5pt !important;
+                    color: #666 !important;
+                }
+            }
+        </style>
+    </head>
+    <body
+        class="antialiased selection:bg-brand-500 selection:text-white flex flex-col min-h-screen"
+    >
+        <!-- Navigation -->
+        <nav
+            class="fixed w-full z-50 top-0 transition-all duration-300 glass-card border-b-0 border-white/10 shadow-lg"
+        >
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <a
+                        href="#"
+                        class="text-xl font-bold tracking-tighter gradient-text"
+                        >DevPortfolio.</a
+                    >
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-8">
+                            <a
+                                href="#about"
+                                class="hover:text-brand-400 transition-colors px-3 py-2 rounded-md text-sm font-medium"
+                                >About</a
+                            >
+                            <a
+                                href="#projects"
+                                class="hover:text-brand-400 transition-colors px-3 py-2 rounded-md text-sm font-medium"
+                                >Projects</a
+                            >
+                            <a
+                                href="#contact"
+                                class="bg-brand-500 hover:bg-brand-600 text-white transition-colors px-4 py-2 rounded-full text-sm font-medium shadow-lg shadow-brand-500/30"
+                                >Contact Me</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section
+            id="hero-section"
+            class="flex-grow flex items-center justify-center pt-32 pb-20 px-4 sm:px-6 relative overflow-hidden"
+        >
+            <!-- Background decorative blobs -->
+            <div
+                class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"
+            ></div>
+            <div
+                class="absolute top-1/3 right-1/4 w-96 h-96 bg-indigo-500/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"
+            ></div>
+
+            <div class="max-w-4xl mx-auto text-center relative z-10">
+                <h2
+                    class="hero-subtitle text-brand-400 font-medium tracking-wide uppercase text-sm mb-4"
+                >
+                    Hi, my name is
+                </h2>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">
+                    Alex Developer.<br />
+                    <span class="text-slate-400"
+                        >I build things for the web.</span
+                    >
+                </h1>
+                <p
+                    class="hero-desc mt-4 text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+                >
+                    I'm a software engineer specializing in building (and
+                    occasionally designing) exceptional digital experiences.
+                    Currently, I'm focused on building accessible,
+                    human-centered products.
+                </p>
+                <div class="hero-buttons flex flex-wrap justify-center gap-4">
+                    <a
+                        href="#projects"
+                        class="px-8 py-3 rounded-full bg-white text-slate-900 font-semibold hover:bg-slate-200 transition-colors"
+                        >View My Work</a
+                    >
+                    <a
+                        href="https://github.com"
+                        target="_blank"
+                        class="px-8 py-3 rounded-full border border-slate-700 hover:border-slate-500 hover:bg-slate-800 transition-colors flex items-center gap-2"
+                    >
+                        <svg
+                            class="w-5 h-5"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                        GitHub
+                    </a>
+                    <button
+                        onclick="window.print()"
+                        class="px-8 py-3 rounded-full border border-brand-500 text-brand-400 hover:bg-brand-500/10 transition-colors flex items-center gap-2"
+                    >
+                        <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                            ></path>
+                        </svg>
+                        Print Resume
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-slate-800/50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-3xl font-bold mb-12 flex items-center">
+                    <span class="text-brand-400 mr-3 font-mono text-xl"
+                        >01.</span
+                    >
+                    About Me
+                    <div class="h-px bg-slate-700 flex-grow ml-6"></div>
+                </h3>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div
+                        class="text-slate-400 space-y-4 text-lg leading-relaxed"
+                    >
+                        <p>
+                            Hello! My name is Alex and I enjoy creating things
+                            that live on the internet. My interest in web
+                            development started back in 2018 when I decided to
+                            try editing custom Tumblr themes — turns out hacking
+                            together HTML & CSS taught me a lot about coding!
+                        </p>
+                        <p>
+                            Fast-forward to today, and I've had the privilege of
+                            working at an advertising agency, a start-up, and a
+                            huge corporation. My main focus these days is
+                            building accessible, inclusive products and digital
+                            experiences.
+                        </p>
+                        <p>
+                            Here are a few technologies I've been working with
+                            recently:
+                        </p>
+                        <ul
+                            class="grid grid-cols-2 gap-2 mt-4 font-mono text-sm text-brand-300"
+                        >
+                            <li class="flex items-center">
+                                ▹ JavaScript (ES6+)
+                            </li>
+                            <li class="flex items-center">▹ TypeScript</li>
+                            <li class="flex items-center">▹ React & Next.js</li>
+                            <li class="flex items-center">▹ Hugo & Go</li>
+                            <li class="flex items-center">▹ Tailwind CSS</li>
+                            <li class="flex items-center">▹ Node.js</li>
+                        </ul>
+                    </div>
+                    <div class="relative group max-w-sm mx-auto w-full">
+                        <!-- Placeholder for profile image -->
+                        <div
+                            class="aspect-square rounded-xl bg-slate-700 relative z-10 overflow-hidden border-2 border-slate-600 transition-all duration-300 group-hover:border-brand-400 group-hover:-translate-y-2 group-hover:-translate-x-2"
+                        >
+                            <div
+                                class="w-full h-full flex items-center justify-center text-slate-500"
+                            >
+                                <svg
+                                    class="w-32 h-32"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                    ></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- Decorative border behind image -->
+                        <div
+                            class="absolute inset-0 border-2 border-brand-400 rounded-xl z-0 translate-x-5 translate-y-5 transition-all duration-300 group-hover:translate-x-3 group-hover:translate-y-3"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h3 class="text-3xl font-bold mb-12 flex items-center">
+                    <span class="text-brand-400 mr-3 font-mono text-xl"
+                        >02.</span
+                    >
+                    Some Things I've Built
+                    <div class="h-px bg-slate-700 flex-grow ml-6"></div>
+                </h3>
+
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    <!-- Project Card 1 -->
+                    <div
+                        class="glass-card rounded-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 group"
+                    >
+                        <div
+                            class="h-48 bg-slate-800 flex items-center justify-center border-b border-white/5 relative overflow-hidden"
+                        >
+                            <div
+                                class="absolute inset-0 bg-brand-500/20 group-hover:bg-transparent transition-colors duration-300 z-10"
+                            ></div>
+                            <svg
+                                class="w-16 h-16 text-slate-600"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="1.5"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-brand-400 font-mono text-sm"
+                                    >Featured Project</span
+                                >
+                                <a
+                                    href="#"
+                                    class="text-slate-400 hover:text-brand-400 transition-colors"
+                                >
+                                    <svg
+                                        class="w-5 h-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        ></path>
+                                    </svg>
+                                </a>
+                            </div>
+                            <h4
+                                class="text-xl font-bold mb-2 group-hover:text-brand-400 transition-colors"
+                            >
+                                E-Commerce Platform
+                            </h4>
+                            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+                                A fully functional e-commerce storefront
+                                featuring a custom shopping cart, user
+                                authentication, and Stripe payment integration.
+                            </p>
+                            <ul
+                                class="flex flex-wrap gap-3 font-mono text-xs text-slate-500"
+                            >
+                                <li>Next.js</li>
+                                <li>Tailwind</li>
+                                <li>Stripe</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div
+                        class="glass-card rounded-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 group"
+                    >
+                        <div
+                            class="h-48 bg-slate-800 flex items-center justify-center border-b border-white/5 relative overflow-hidden"
+                        >
+                            <div
+                                class="absolute inset-0 bg-brand-500/20 group-hover:bg-transparent transition-colors duration-300 z-10"
+                            ></div>
+                            <svg
+                                class="w-16 h-16 text-slate-600"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="1.5"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-brand-400 font-mono text-sm"
+                                    >Open Source</span
+                                >
+                                <a
+                                    href="#"
+                                    class="text-slate-400 hover:text-brand-400 transition-colors"
+                                >
+                                    <svg
+                                        class="w-5 h-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        ></path>
+                                    </svg>
+                                </a>
+                            </div>
+                            <h4
+                                class="text-xl font-bold mb-2 group-hover:text-brand-400 transition-colors"
+                            >
+                                Analytics Dashboard
+                            </h4>
+                            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+                                A high-performance dashboard for visualizing
+                                large datasets in real-time. Built with a focus
+                                on rendering speed and smooth interactions.
+                            </p>
+                            <ul
+                                class="flex flex-wrap gap-3 font-mono text-xs text-slate-500"
+                            >
+                                <li>React</li>
+                                <li>D3.js</li>
+                                <li>Node API</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div
+                        class="glass-card rounded-xl overflow-hidden hover:-translate-y-2 transition-transform duration-300 group"
+                    >
+                        <div
+                            class="h-48 bg-slate-800 flex items-center justify-center border-b border-white/5 relative overflow-hidden"
+                        >
+                            <div
+                                class="absolute inset-0 bg-brand-500/20 group-hover:bg-transparent transition-colors duration-300 z-10"
+                            ></div>
+                            <svg
+                                class="w-16 h-16 text-slate-600"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="1.5"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                ></path>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-brand-400 font-mono text-sm"
+                                    >Personal Project</span
+                                >
+                                <a
+                                    href="#"
+                                    class="text-slate-400 hover:text-brand-400 transition-colors"
+                                >
+                                    <svg
+                                        class="w-5 h-5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        ></path>
+                                    </svg>
+                                </a>
+                            </div>
+                            <h4
+                                class="text-xl font-bold mb-2 group-hover:text-brand-400 transition-colors"
+                            >
+                                Hugo Static Blog
+                            </h4>
+                            <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+                                A minimal, heavily customized Hugo theme
+                                designed for technical writing, featuring syntax
+                                highlighting and ultra-fast page loads.
+                            </p>
+                            <ul
+                                class="flex flex-wrap gap-3 font-mono text-xs text-slate-500"
+                            >
+                                <li>Hugo</li>
+                                <li>Markdown</li>
+                                <li>CSS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-32 text-center">
+            <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-brand-400 font-mono text-sm mb-4">
+                    03. What's Next?
+                </h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-6">
+                    Get In Touch
+                </h3>
+                <p class="text-slate-400 mb-10 text-lg">
+                    Although I'm not currently looking for any new
+                    opportunities, my inbox is always open. Whether you have a
+                    question or just want to say hi, I'll try my best to get
+                    back to you!
+                </p>
+                <a
+                    href="mailto:hello@example.com"
+                    class="inline-block px-8 py-4 border border-brand-400 text-brand-400 rounded-md hover:bg-brand-400/10 transition-colors font-mono"
+                >
+                    Say Hello
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer
+            class="py-8 text-center text-slate-500 text-sm flex flex-col items-center"
+        >
+            <div class="flex space-x-6 mb-4">
+                <a href="#" class="hover:text-brand-400 transition-colors">
+                    <span class="sr-only">GitHub</span>
+                    <svg
+                        class="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                </a>
+                <a href="#" class="hover:text-brand-400 transition-colors">
+                    <span class="sr-only">LinkedIn</span>
+                    <svg
+                        class="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                </a>
+            </div>
+            <p>Built with ❤️ and Tailwind CSS. Hosted on GitHub Pages.</p>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,7 @@
+baseURL = 'https://traseg.github.io/resume/'
+languageCode = 'en-us'
+title = 'My Portfolio'
+
+[params]
+  author = "Tom Seguin"
+  description = "A personal portfolio site"
