@@ -2,7 +2,7 @@
 title = "Théâtre et spectacles"
 genre = 'Engagement associatif - troupe Arscène / association SolReMi'
 +++
-<p class="text-slate-400 text-sm mb-4 line-clamp-3">
+<p class="text-slate-400 text-sm mb-4">
   Je pratique le théâtre depuis plusieurs années au sein de différentes troupes. Cette activité m’a permis de participer à plusieurs spectacles et festivals, et de travailler sur des projets collectifs mêlant écriture, répétitions et représentations publiques.
 </p>
 <ul

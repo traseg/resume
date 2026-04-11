@@ -2,7 +2,7 @@
 title = "Hugo Static Blog"
 genre = 'Personal Project'
 +++
-<p class="text-slate-400 text-sm mb-4 line-clamp-3">
+<p class="text-slate-400 text-sm mb-4">
   A minimal, heavily customized Hugo theme
   designed for technical writing, featuring syntax
   highlighting and ultra-fast page loads.

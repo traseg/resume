@@ -2,7 +2,7 @@
 title = "Analytics Dashboard"
 genre = 'Open Source'
 +++
-<p class="text-slate-400 text-sm mb-4 line-clamp-3">
+<p class="text-slate-400 text-sm mb-4">
   A high-performance dashboard for visualizing
   large datasets in real-time. Built with a focus
   on rendering speed and smooth interactions.
